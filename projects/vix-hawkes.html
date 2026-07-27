@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VIX-Augmented Hawkes Research | Chenghao Wang</title>
+  <meta name="description" content="Research-in-progress case study on a VIX-augmented bivariate daily self-exciting model for FF12 Money and BusEq negative-tail events.">
+  <meta name="theme-color" content="#0b1724">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="VIX-Augmented Hawkes Research | Chenghao Wang">
+  <meta property="og:description" content="Research-in-progress case study on VIX conditioning and apparent cross-sector negative-tail excitation.">
+  <meta property="og:locale" content="en_GB">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../styles.css">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ScholarlyArticle",
+      "headline": "How Much Cross-Sector Excitation Survives VIX Conditioning?",
+      "author": {
+        "@type": "Person",
+        "name": "Chenghao Wang"
+      },
+      "about": [
+        "Hawkes processes",
+        "VIX",
+        "Financial tail risk",
+        "FF12 Money",
+        "FF12 BusEq"
+      ],
+      "isAccessibleForFree": true
+    }
+  </script>
+</head>
+<body data-page="vix" class="case-page">
+  <a class="skip-link" href="#case-content" data-i18n="common.skip">Skip to content</a>
+
+  <header class="site-header case-header">
+    <a class="brand" href="../index.html" data-lang-link data-base-href="../index.html" data-i18n-aria="home.brandAria" aria-label="Chenghao Wang portfolio home">
+      <span class="brand__mark" aria-hidden="true">CW</span>
+      <span class="brand__name">Chenghao Wang</span>
+    </a>
+    <nav class="case-header__nav" data-i18n-aria="vix.navAria" aria-label="VIX–Hawkes case study navigation">
+      <a class="text-link" href="../index.html#selected-work" data-lang-link data-base-href="../index.html#selected-work">
+        <span aria-hidden="true">←</span><span data-i18n="common.backPortfolio">Back to portfolio</span>
+      </a>
+      <div class="language-switch" role="group" data-i18n-aria="common.language" aria-label="Language">
+        <button type="button" data-lang-option="zh" aria-pressed="false">中文</button>
+        <span aria-hidden="true">/</span>
+        <button type="button" data-lang-option="en" aria-pressed="true">EN</button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="case-content">
+    <section class="case-hero case-hero--vix">
+      <div class="case-hero__grid" aria-hidden="true"></div>
+      <div class="container case-hero__inner">
+        <div>
+          <p class="eyebrow eyebrow--light" data-i18n="vix.eyebrow">Flagship research case</p>
+          <span class="status-tag status-tag--accent" data-i18n="common.researchStatus">Research in progress</span>
+          <h1 data-i18n="vix.title">How Much Cross-Sector Excitation Survives VIX Conditioning?</h1>
+          <p class="case-hero__subtitle" data-i18n="vix.subtitle">A VIX-augmented daily self-exciting model for FF12 Money and BusEq negative-tail events.</p>
+          <p class="case-hero__status" data-i18n="vix.statusText">Literature review and empirical workflow completed. Estimation and robustness testing are in progress. No fitted empirical result is claimed.</p>
+        </div>
+        <div class="case-hero__network" aria-hidden="true">
+          <span class="case-network__vix">VIX<sub>t−1</sub></span>
+          <span class="case-network__money">Money</span>
+          <span class="case-network__buseq">BusEq</span>
+          <span class="case-network__line case-network__line--one"></span>
+          <span class="case-network__line case-network__line--two"></span>
+          <span class="case-network__cross">↔</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-summary">
+      <div class="container case-summary__grid">
+        <article>
+          <span>01</span>
+          <h2 data-i18n="vix.summaryQuestion">Research question</h2>
+          <p data-i18n="vix.summaryQuestionBody">How do Money → BusEq and BusEq → Money kernel summaries change after lagged log VIX enters the background hazard?</p>
+        </article>
+        <article>
+          <span>02</span>
+          <h2 data-i18n="vix.summaryMethod">Method</h2>
+          <p data-i18n="vix.summaryMethodBody">Two daily negative-tail indicators in a bivariate discrete-time Hawkes-type binary hazard.</p>
+        </article>
+        <article>
+          <span>03</span>
+          <h2 data-i18n="vix.summaryValidation">Validation</h2>
+          <p data-i18n="vix.summaryValidationBody">Bootstrap uncertainty plus locked one-day-ahead Brier score, log score and calibration.</p>
+        </article>
+        <article>
+          <span>04</span>
+          <h2 data-i18n="vix.summaryStatus">Current status</h2>
+          <p data-i18n="vix.summaryStatusBody">Research design and workflow only; no estimated attenuation, forecast improvement or significance is reported.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="case-section" aria-labelledby="research-question-title">
+      <div class="container case-section__split">
+        <div>
+          <p class="eyebrow" data-i18n="vix.questionEyebrow">Research question</p>
+          <h2 id="research-question-title" data-i18n="vix.questionTitle">Separating observed stress from apparent event-history dependence.</h2>
+          <p data-i18n="vix.questionBody">Negative-tail events can cluster across sectors because one sector predicts another, because both respond to persistent market stress, or because own-sector history and unobserved shocks remain. The study asks a deliberately bounded attribution question rather than claiming causal contagion.</p>
+        </div>
+        <div class="case-section__notes">
+          <article>
+            <h3 data-i18n="vix.whyTitle">Why it matters</h3>
+            <p data-i18n="vix.whyBody">If a constant background omits an observable common-stress state, event-history terms may absorb some clustering associated with market-wide stress. Risk monitoring based on those terms needs to distinguish model-based excitation from broader stress exposure.</p>
+          </article>
+          <article>
+            <h3 data-i18n="vix.gapTitle">Literature gap</h3>
+            <p data-i18n="vix.gapBody">Prior work separately shows that implied volatility can improve extreme-return point-process forecasts, that background misspecification can inflate apparent excitation, and that daily tails can use discrete self-exciting formulations. Direct evidence on VIX-conditioned directional attenuation between two FF12 portfolios remains limited.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section case-section--tint" aria-labelledby="data-title">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow" data-i18n="vix.dataEyebrow">Data &amp; event construction</p>
+          <h2 id="data-title" data-i18n="vix.dataTitle">Public daily data with locked, time-ordered definitions.</h2>
+        </div>
+
+        <div class="data-source-grid">
+          <article>
+            <span class="source-code">M</span>
+            <h3 data-i18n="vix.dataMoney">FF12 Money</h3>
+            <p data-i18n="vix.dataMoneyBody">Kenneth R. French Data Library · daily value-weighted returns</p>
+          </article>
+          <article>
+            <span class="source-code">B</span>
+            <h3 data-i18n="vix.dataBusEq">FF12 BusEq</h3>
+            <p data-i18n="vix.dataBusEqBody">Business-equipment and technology-oriented portfolio · daily value-weighted returns</p>
+          </article>
+          <article>
+            <span class="source-code source-code--accent">V</span>
+            <h3 data-i18n="vix.dataVix">VIXCLS</h3>
+            <p data-i18n="vix.dataVixBody">FRED CBOE VIX daily close · lagged one trading day and log-transformed</p>
+          </article>
+          <article>
+            <span class="source-code">T</span>
+            <h3 data-i18n="vix.dataSample">Provisional common sample</h3>
+            <p data-i18n="vix.dataSampleBody">2 Jan 1990 – 31 Dec 2025; final endpoints depend on common-date alignment.</p>
+          </article>
+        </div>
+
+        <div class="event-definition">
+          <div>
+            <h3 data-i18n="vix.eventTitle">Negative-tail event definition</h3>
+            <p data-i18n="vix.eventBody">Each sector uses the fifth percentile of its own training-period returns. Cut-offs are frozen for primary out-of-sample evaluation. If both sectors have events on the same day, both are retained; no intraday ordering is invented.</p>
+          </div>
+          <div class="event-formula" role="img" data-i18n-aria="vix.eventAria" aria-label="Negative-tail indicator">
+            <math class="math-display" xmlns="http://www.w3.org/1998/Math/MathML" display="block" aria-hidden="true">
+              <msub>
+                <mi>Y</mi>
+                <mrow><mi>i</mi><mo>,</mo><mi>t</mi></mrow>
+              </msub>
+              <mo>=</mo>
+              <mn>𝟙</mn>
+              <mo fence="true">{</mo>
+              <msub>
+                <mi>R</mi>
+                <mrow><mi>i</mi><mo>,</mo><mi>t</mi></mrow>
+              </msub>
+              <mo>≤</mo>
+              <msubsup>
+                <mi>q</mi>
+                <mrow><mi>i</mi><mo>,</mo><mn>0.05</mn></mrow>
+                <mtext>train</mtext>
+              </msubsup>
+              <mo fence="true">}</mo>
+            </math>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section" aria-labelledby="architecture-title">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow" data-i18n="vix.archEyebrow">Model architecture</p>
+          <h2 id="architecture-title" data-i18n="vix.archTitle">VIX changes the background hazard; past events drive the excitation component.</h2>
+        </div>
+
+        <div class="architecture" role="img" data-i18n-aria="vix.archAria" aria-label="Diagram of lagged VIX feeding two sector background hazards, with bidirectional event-history excitation between Money and BusEq">
+          <svg class="architecture__connector" viewBox="0 0 1000 480" preserveAspectRatio="none" aria-hidden="true">
+            <defs>
+              <marker id="architecture-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+                <path d="M 0 0 L 10 5 L 0 10 z"></path>
+              </marker>
+            </defs>
+            <path class="architecture__path architecture__path--context" d="M450 124 L205 330" marker-end="url(#architecture-arrow)"></path>
+            <path class="architecture__path architecture__path--context" d="M550 124 L795 330" marker-end="url(#architecture-arrow)"></path>
+            <path class="architecture__path architecture__path--direction" d="M310 360 C425 340 575 340 690 360" marker-end="url(#architecture-arrow)"></path>
+            <path class="architecture__path architecture__path--direction" d="M690 400 C575 420 425 420 310 400" marker-end="url(#architecture-arrow)"></path>
+            <text class="architecture__direction-label" x="500" y="334" text-anchor="middle" data-i18n="vix.archDirection1">Money → BusEq</text>
+            <text class="architecture__direction-label" x="500" y="444" text-anchor="middle" data-i18n="vix.archDirection2">BusEq → Money</text>
+          </svg>
+          <div class="architecture__vix">
+            <span data-i18n="vix.archVix">Lagged standardised log VIX</span>
+            <strong>z<sub>t−1</sub><sup>L</sup></strong>
+          </div>
+          <div class="architecture__receiver architecture__receiver--money">
+            <span data-i18n="vix.archBackground">Background hazard</span>
+            <strong data-i18n="vix.archMoney">Money negative tail</strong>
+          </div>
+          <div class="architecture__receiver architecture__receiver--buseq">
+            <span data-i18n="vix.archBackground">Background hazard</span>
+            <strong data-i18n="vix.archBusEq">BusEq negative tail</strong>
+          </div>
+        </div>
+
+        <div class="formula-panel">
+          <div>
+            <h3 data-i18n="vix.formulaTitle">Primary probability and hazard</h3>
+            <p data-i18n="vix.formulaBody">The complementary-log-log link keeps daily event probabilities within bounds. VIX enters the exponential background term; historical tail events enter through decayed history H.</p>
+          </div>
+          <div class="formula-panel__math">
+            <math class="math-display math-display--probability" xmlns="http://www.w3.org/1998/Math/MathML" display="block" data-i18n-aria="vix.probabilityAria" aria-label="Daily event probability" role="img">
+              <msub><mi>p</mi><mrow><mi>i</mi><mo>,</mo><mi>t</mi></mrow></msub>
+              <mo>=</mo>
+              <mn>1</mn>
+              <mo>−</mo>
+              <mi>exp</mi>
+              <mo>(</mo>
+              <mo>−</mo>
+              <msub><mi>λ</mi><mrow><mi>i</mi><mo>,</mo><mi>t</mi></mrow></msub>
+              <mo>)</mo>
+            </math>
+            <math class="math-display math-display--hazard" xmlns="http://www.w3.org/1998/Math/MathML" display="block" data-i18n-aria="vix.hazardAria" aria-label="VIX-conditioned hazard" role="img">
+              <msubsup>
+                <mi>λ</mi>
+                <mrow><mi>i</mi><mo>,</mo><mi>t</mi></mrow>
+                <mtext>M1-L</mtext>
+              </msubsup>
+              <mo>=</mo>
+              <mi>exp</mi>
+              <mo>(</mo>
+              <msub><mi>μ</mi><mi>i</mi></msub>
+              <mo>+</mo>
+              <msub><mi>γ</mi><mi>i</mi></msub>
+              <msubsup>
+                <mi>z</mi>
+                <mrow><mi>t</mi><mo>−</mo><mn>1</mn></mrow>
+                <mi>L</mi>
+              </msubsup>
+              <mo>)</mo>
+              <mo>+</mo>
+              <munder><mo>∑</mo><mi>j</mi></munder>
+              <msub><mi>α</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub>
+              <msub><mi>H</mi><mrow><mi>i</mi><mi>j</mi><mo>,</mo><mi>t</mi></mrow></msub>
+            </math>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section case-section--dark" aria-labelledby="ladder-title">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow eyebrow--light" data-i18n="vix.ladderEyebrow">Baseline model ladder</p>
+          <h2 id="ladder-title" data-i18n="vix.ladderTitle">Each comparison answers one narrower question.</h2>
+        </div>
+
+        <ol class="model-ladder">
+          <li><strong>B0</strong><span data-i18n="vix.b0">Independent historical-frequency Bernoulli</span></li>
+          <li><strong>B1</strong><span data-i18n="vix.b1">VIX-only complementary-log-log hazard</span></li>
+          <li><strong>B2</strong><span data-i18n="vix.b2">Independent univariate self-exciting hazards</span></li>
+          <li class="model-ladder__primary"><strong>B3</strong><span data-i18n="vix.b3">Constant-background bivariate self-exciting hazard</span></li>
+          <li class="model-ladder__primary"><strong>M1-L</strong><span data-i18n="vix.m1l">Lagged log-VIX background bivariate hazard</span></li>
+          <li><strong>M1-Δ</strong><span data-i18n="vix.m1d">Lagged change-in-log-VIX robustness model</span></li>
+        </ol>
+        <div class="primary-comparison">
+          <span data-i18n="vix.primaryComparison">Primary comparison</span>
+          <p data-i18n="vix.primaryComparisonBody">B3 and M1-L use identical event targets, splits, decay restrictions, constraints, initialisation and optimiser tolerances.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section" aria-labelledby="estimand-title">
+      <div class="container case-section__split">
+        <div>
+          <p class="eyebrow" data-i18n="vix.estimandEyebrow">Main estimands</p>
+          <h2 id="estimand-title" data-i18n="vix.estimandTitle">Directional kernel summaries before and after VIX conditioning.</h2>
+          <p data-i18n="vix.estimandBody">The focus is the change in Money → BusEq and BusEq → Money cumulative kernel summaries, their total, and dependent-data bootstrap intervals. In this binary-hazard setting they are persistence summaries analogous to Hawkes kernel mass, not automatically expected offspring counts.</p>
+        </div>
+        <div class="estimand-diagram" role="img" data-i18n-aria="vix.estimandAria" aria-label="Directional kernel summaries">
+          <div>
+            <span>Money</span>
+            <strong>G<sub>BusEq←Money</sub></strong>
+            <span>BusEq</span>
+          </div>
+          <div>
+            <span>BusEq</span>
+            <strong>G<sub>Money←BusEq</sub></strong>
+            <span>Money</span>
+          </div>
+          <p>ΔG = G<sup>M1-L</sup> − G<sup>B3</sup></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section case-section--tint" aria-labelledby="evaluation-title">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow" data-i18n="vix.evaluationEyebrow">Evaluation design</p>
+          <h2 id="evaluation-title" data-i18n="vix.evaluationTitle">Attribution first, forecasting as supporting validation.</h2>
+        </div>
+
+        <div class="evaluation-timeline">
+          <article>
+            <span data-i18n="vix.train">Training</span>
+            <strong data-i18n="vix.trainDate">1990–2009</strong>
+            <p data-i18n="vix.trainBody">Estimate primary tail cut-offs and initial VIX standardisation.</p>
+          </article>
+          <article>
+            <span data-i18n="vix.validation">Validation</span>
+            <strong data-i18n="vix.validationDate">2010–2015</strong>
+            <p data-i18n="vix.validationBody">Choose decay restriction and refitting frequency.</p>
+          </article>
+          <article>
+            <span data-i18n="vix.locked">Locked evaluation</span>
+            <strong data-i18n="vix.lockedDate">2016–2025</strong>
+            <p data-i18n="vix.lockedBody">Use only after modelling and scoring rules are frozen.</p>
+          </article>
+        </div>
+
+        <div class="score-note">
+          <h3 data-i18n="vix.scoresTitle">Supporting forecast checks</h3>
+          <p data-i18n="vix.scoresBody">One-day-ahead Brier score, negative log score and calibration. Lower proper scores are better; in-sample likelihood is never presented as forecasting success.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section" aria-labelledby="roadmap-title">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow" data-i18n="vix.roadmapEyebrow">Research roadmap</p>
+          <h2 id="roadmap-title" data-i18n="vix.roadmapTitle">A staged workflow with explicit stopping gates.</h2>
+        </div>
+        <ol class="research-roadmap">
+          <li class="is-complete"><span>01</span><strong data-i18n="vix.roadmap1">Protocol and data audit</strong></li>
+          <li class="is-complete"><span>02</span><strong data-i18n="vix.roadmap2">Tail-event construction</strong></li>
+          <li class="is-current"><span>03</span><strong data-i18n="vix.roadmap3">Simulation recovery</strong></li>
+          <li><span>04</span><strong data-i18n="vix.roadmap4">B0–B3 estimation</strong></li>
+          <li><span>05</span><strong data-i18n="vix.roadmap5">M1-L and bootstrap</strong></li>
+          <li><span>06</span><strong data-i18n="vix.roadmap6">Locked forecast panel</strong></li>
+          <li><span>07</span><strong data-i18n="vix.roadmap7">Robustness and write-up</strong></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="case-section case-status" aria-labelledby="status-title">
+      <div class="container case-status__inner">
+        <div>
+          <p class="eyebrow eyebrow--light" data-i18n="vix.statusEyebrow">Current status &amp; limitations</p>
+          <h2 id="status-title" data-i18n="vix.statusTitle">The design is public; the empirical claims are not yet available.</h2>
+          <p data-i18n="vix.statusBody">The latest recorded execution state is preflight failed with no estimation. The CSV import and preflight checks must be corrected before model work resumes.</p>
+        </div>
+        <ul>
+          <li data-i18n="vix.limit1">VIX is an observed common-stress proxy, not an instrument or a complete measure of common shocks.</li>
+          <li data-i18n="vix.limit2">Daily data do not reveal within-day event order, so the primary likelihood remains discrete-time.</li>
+          <li data-i18n="vix.limit3">Rare events may produce weak identification, boundary estimates or wide bootstrap intervals.</li>
+          <li data-i18n="vix.limit4">Any eventual result supports conditional attribution and prediction, not causal financial contagion.</li>
+        </ul>
+        <p class="document-policy" data-i18n="vix.noDownload">The full working research document is intentionally not offered for public download.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <p>© <span data-year></span> <span data-i18n="common.copyright">Chenghao Wang</span></p>
+      <p data-i18n="common.footer">Financial statistics, data products and risk modelling.</p>
+      <a href="#case-content" data-i18n="common.backTop">Back to top</a>
+    </div>
+  </footer>
+
+  <script src="../i18n.js"></script>
+  <script src="../script.js"></script>
+</body>
+</html>

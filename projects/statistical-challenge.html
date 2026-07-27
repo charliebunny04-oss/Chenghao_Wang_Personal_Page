@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LSE Statistical Challenge | Chenghao Wang</title>
+  <meta name="description" content="A reconstructed case study of GARCH(1,1), volatility clustering and Hurst estimates for the FTSE 100, Nikkei 225 and S&amp;P 500.">
+  <meta name="theme-color" content="#0b1724">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="LSE Statistical Challenge | Chenghao Wang">
+  <meta property="og:description" content="GARCH(1,1), volatility persistence and Hurst estimates across three equity indices.">
+  <meta property="og:locale" content="en_GB">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="../assets/challenge-report-cover.png" as="image">
+  <link rel="stylesheet" href="../styles.css">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CreativeWork",
+      "name": "GARCH Model and Hurst Exponent",
+      "author": {
+        "@type": "Person",
+        "name": "Chenghao Wang"
+      },
+      "about": [
+        "GARCH",
+        "Hurst exponent",
+        "Volatility clustering",
+        "FTSE 100",
+        "Nikkei 225",
+        "S&P 500"
+      ],
+      "dateCreated": "2025"
+    }
+  </script>
+</head>
+<body data-page="challenge" class="case-page">
+  <a class="skip-link" href="#case-content" data-i18n="common.skip">Skip to content</a>
+
+  <header class="site-header case-header">
+    <a class="brand" href="../index.html" data-lang-link data-base-href="../index.html" data-i18n-aria="home.brandAria" aria-label="Chenghao Wang portfolio home">
+      <span class="brand__mark" aria-hidden="true">CW</span>
+      <span class="brand__name">Chenghao Wang</span>
+    </a>
+    <nav class="case-header__nav" data-i18n-aria="challenge.navAria" aria-label="Statistical Challenge case study navigation">
+      <a class="text-link" href="../index.html#selected-work" data-lang-link data-base-href="../index.html#selected-work">
+        <span aria-hidden="true">←</span><span data-i18n="common.backPortfolio">Back to portfolio</span>
+      </a>
+      <div class="language-switch" role="group" data-i18n-aria="common.language" aria-label="Language">
+        <button type="button" data-lang-option="zh" aria-pressed="false">中文</button>
+        <span aria-hidden="true">/</span>
+        <button type="button" data-lang-option="en" aria-pressed="true">EN</button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="case-content">
+    <section class="case-hero case-hero--challenge">
+      <div class="case-hero__grid" aria-hidden="true"></div>
+      <div class="container case-hero__inner">
+        <div>
+          <p class="eyebrow eyebrow--light" data-i18n="challenge.eyebrow">Selected work · LSE Statistical Challenge</p>
+          <span class="status-tag status-tag--accent" data-i18n="common.completed">Completed team project</span>
+          <h1 data-i18n="challenge.title">Volatility Persistence and Path Roughness Across Three Equity Indices</h1>
+          <p class="case-hero__subtitle" data-i18n="challenge.subtitle">A careful reconstruction of a team project using GARCH(1,1), maximum likelihood, PACF diagnostics and Hurst estimation.</p>
+          <p class="case-hero__status" data-i18n="challenge.team">Team Lead · Jan 2025 – Mar 2025</p>
+        </div>
+        <div class="market-lines" aria-hidden="true">
+          <svg viewBox="0 0 560 300" focusable="false">
+            <path d="M0 238 C48 225, 66 247, 108 211 S169 208, 207 173 S271 192, 310 135 S379 165, 417 105 S486 126, 560 44"></path>
+            <path d="M0 262 C55 255, 81 221, 126 231 S181 182, 231 206 S293 151, 342 162 S410 96, 456 116 S511 70, 560 78"></path>
+            <path d="M0 190 C42 202, 78 170, 122 181 S191 128, 242 151 S313 111, 354 121 S420 74, 464 91 S519 35, 560 48"></path>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-summary">
+      <div class="container case-summary__grid">
+        <article>
+          <span>01</span>
+          <h2 data-i18n="challenge.summaryProblem">Problem</h2>
+          <p data-i18n="challenge.summaryProblemBody">Describe volatility clustering and compare path-roughness estimates across three major equity indices.</p>
+        </article>
+        <article>
+          <span>02</span>
+          <h2 data-i18n="challenge.summaryData">Data</h2>
+          <p data-i18n="challenge.summaryDataBody">Daily FTSE 100, Nikkei 225 and S&amp;P 500 prices, approximately Feb 2004 – Feb 2024.</p>
+        </article>
+        <article>
+          <span>03</span>
+          <h2 data-i18n="challenge.summaryMethod">Method</h2>
+          <p data-i18n="challenge.summaryMethodBody">Returns, PACF diagnostics, GARCH(1,1) by maximum likelihood and Hurst estimation.</p>
+        </article>
+        <article>
+          <span>04</span>
+          <h2 data-i18n="challenge.summaryBoundary">Interpretive boundary</h2>
+          <p data-i18n="challenge.summaryBoundaryBody">No unverifiable 15% fit-improvement claim and no trading-strategy inference.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="case-section" aria-labelledby="challenge-problem-title">
+      <div class="container case-section__split">
+        <div>
+          <p class="eyebrow" data-i18n="challenge.problemEyebrow">Problem &amp; data</p>
+          <h2 id="challenge-problem-title" data-i18n="challenge.problemTitle">Move from price paths to conditional volatility and path roughness.</h2>
+          <p data-i18n="challenge.problemBody">The project used roughly 20 years of daily prices for the FTSE 100, Nikkei 225 and S&amp;P 500. Returns were constructed before volatility modelling. GARCH(1,1) describes time-varying conditional variance, while the Hurst exponent provides a separate path-dependence and roughness summary under the report's estimator.</p>
+        </div>
+        <div class="index-list" data-i18n-aria="challenge.indexAria" aria-label="Equity indices">
+          <div><span>UK</span><strong data-i18n="challenge.ftse">FTSE 100</strong><small>^FTSE</small></div>
+          <div><span>JP</span><strong data-i18n="challenge.nikkei">Nikkei 225</strong><small>^N225</small></div>
+          <div><span>US</span><strong data-i18n="challenge.sp">S&amp;P 500</strong><small>^GSPC</small></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section case-section--tint" aria-labelledby="workflow-title">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow" data-i18n="challenge.workflowEyebrow">Analytical workflow</p>
+          <h2 id="workflow-title" data-i18n="challenge.workflowTitle">A compact pipeline from raw prices to cautious interpretation.</h2>
+        </div>
+
+        <div class="analysis-flow" role="img" data-i18n-aria="challenge.workflowAria" aria-label="Workflow from price data to returns, GARCH and Hurst modelling, diagnostics and interpretation">
+          <span data-i18n="challenge.flow1">Daily prices</span>
+          <span data-i18n="challenge.flow2">Returns</span>
+          <span data-i18n="challenge.flow3">PACF &amp; clustering</span>
+          <span data-i18n="challenge.flow4">GARCH / Hurst</span>
+          <span data-i18n="challenge.flow5">Diagnostics</span>
+          <span data-i18n="challenge.flow6">Interpretation</span>
+        </div>
+
+        <div class="method-panel">
+          <h3 data-i18n="challenge.methodTitle">Methodology</h3>
+          <ol>
+            <li data-i18n="challenge.method1">Construct simple daily returns from index prices.</li>
+            <li data-i18n="challenge.method2">Inspect squared-return PACF patterns for volatility dependence.</li>
+            <li data-i18n="challenge.method3">Estimate zero-mean normal GARCH(1,1) models by maximum likelihood.</li>
+            <li data-i18n="challenge.method4">Review AIC, BIC and log-likelihood within each fitted index model; do not convert them into a cross-index percentage improvement.</li>
+            <li data-i18n="challenge.method5">Estimate Hurst exponents and interpret them with estimator and window sensitivity in mind.</li>
+          </ol>
+          <div class="formula-panel__math formula-panel__math--compact">
+            <p>r<sub>t</sub> = (P<sub>t</sub> − P<sub>t−1</sub>) / P<sub>t−1</sub></p>
+            <p>σ<sub>t</sub><sup>2</sup> = ω + αε<sub>t−1</sub><sup>2</sup> + βσ<sub>t−1</sub><sup>2</sup></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section" aria-labelledby="results-title">
+      <div class="container">
+        <div class="section-heading section-heading--wide">
+          <p class="eyebrow" data-i18n="challenge.resultsEyebrow">Results</p>
+          <h2 id="results-title" data-i18n="challenge.resultsTitle">High estimated volatility persistence; all reported Hurst estimates below 0.5.</h2>
+        </div>
+
+        <div class="chart-grid">
+          <figure class="data-chart">
+            <figcaption data-i18n="challenge.hurstTitle">Hurst estimates from the report</figcaption>
+            <div class="dot-plot" role="img" data-i18n-aria="challenge.hurstAria" aria-label="Dot plot of Hurst estimates: FTSE 0.4218, Nikkei 0.4884 and S&amp;P 500 0.4598">
+              <div class="dot-plot__axis"><span>0.40</span><span>0.45</span><span>0.50</span></div>
+              <div class="dot-plot__row">
+                <span data-i18n="challenge.ftse">FTSE 100</span>
+                <i style="--point-position: 21.8%"></i>
+                <strong>0.4218</strong>
+              </div>
+              <div class="dot-plot__row">
+                <span data-i18n="challenge.nikkei">Nikkei 225</span>
+                <i style="--point-position: 88.4%"></i>
+                <strong>0.4884</strong>
+              </div>
+              <div class="dot-plot__row">
+                <span data-i18n="challenge.sp">S&amp;P 500</span>
+                <i style="--point-position: 59.8%"></i>
+                <strong>0.4598</strong>
+              </div>
+            </div>
+            <p data-i18n="challenge.hurstInterpretation">Under the estimator used in the report, all three values are below 0.5 and the FTSE path appears relatively rougher. This is a descriptive result, not a stable trading rule.</p>
+          </figure>
+
+          <figure class="data-chart">
+            <figcaption data-i18n="challenge.persistenceTitle">GARCH(1,1) persistence, α + β</figcaption>
+            <div class="persistence-chart" role="img" data-i18n-aria="challenge.persistenceAria" aria-label="Bar chart of GARCH persistence: FTSE 0.9800, Nikkei 0.9796 and S&amp;P 500 0.9800">
+              <div>
+                <span data-i18n="challenge.ftse">FTSE 100</span>
+                <i style="--bar-width: 98%"></i>
+                <strong>0.9800</strong>
+              </div>
+              <div>
+                <span data-i18n="challenge.nikkei">Nikkei 225</span>
+                <i style="--bar-width: 97.96%"></i>
+                <strong>0.9796</strong>
+              </div>
+              <div>
+                <span data-i18n="challenge.sp">S&amp;P 500</span>
+                <i style="--bar-width: 98%"></i>
+                <strong>0.9800</strong>
+              </div>
+            </div>
+            <p data-i18n="challenge.persistenceInterpretation">The estimated α + β values are close to one, indicating high volatility persistence in the fitted GARCH models. They are not prediction accuracies.</p>
+          </figure>
+        </div>
+
+        <div class="table-wrap">
+          <h3 data-i18n="challenge.tableTitle">Selected fitted GARCH parameters</h3>
+          <table>
+            <thead>
+              <tr>
+                <th scope="col" data-i18n="challenge.tableIndex">Index</th>
+                <th scope="col" data-i18n="challenge.tableAlpha">α</th>
+                <th scope="col" data-i18n="challenge.tableBeta">β</th>
+                <th scope="col" data-i18n="challenge.tablePersistence">α + β</th>
+                <th scope="col" data-i18n="challenge.tableLogLik">Log-likelihood</th>
+                <th scope="col" data-i18n="challenge.tableAic">AIC</th>
+                <th scope="col" data-i18n="challenge.tableBic">BIC</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row" data-i18n="challenge.ftse">FTSE 100</th>
+                <td>0.1000</td>
+                <td>0.8800</td>
+                <td>0.9800</td>
+                <td>16590.4</td>
+                <td>−33174.7</td>
+                <td>−33155.1</td>
+              </tr>
+              <tr>
+                <th scope="row" data-i18n="challenge.nikkei">Nikkei 225</th>
+                <td>0.1012</td>
+                <td>0.8784</td>
+                <td>0.9796</td>
+                <td>14576.6</td>
+                <td>−29147.2</td>
+                <td>−29127.7</td>
+              </tr>
+              <tr>
+                <th scope="row" data-i18n="challenge.sp">S&amp;P 500</th>
+                <td>0.1000</td>
+                <td>0.8800</td>
+                <td>0.9800</td>
+                <td>16479.6</td>
+                <td>−32953.1</td>
+                <td>−32933.6</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section case-section--dark" aria-labelledby="interpretation-title">
+      <div class="container case-section__split">
+        <div>
+          <p class="eyebrow eyebrow--light" data-i18n="challenge.interpretEyebrow">Interpretation &amp; limitations</p>
+          <h2 id="interpretation-title" data-i18n="challenge.interpretTitle">What the project supports—and what it does not.</h2>
+        </div>
+        <ul class="limitation-list">
+          <li data-i18n="challenge.interpret1">GARCH was applied to returns to model conditional heteroskedasticity; price non-stationarity and return-volatility dynamics are distinct issues.</li>
+          <li data-i18n="challenge.interpret2">Strict stationarity concerns invariance of the full joint distribution, while weak stationarity concerns stable first and second moments.</li>
+          <li data-i18n="challenge.interpret3">Hurst estimates are sensitive to estimator, window length and data transformation, so cross-index ranking should remain cautious.</li>
+          <li data-i18n="challenge.interpret4">AIC, BIC and log-likelihood values are meaningful for disciplined model comparison within compatible samples and specifications; they do not establish a 15% improvement here.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="case-section" aria-labelledby="learning-title">
+      <div class="container learning-report">
+        <div class="learning-note">
+          <h2 id="learning-title" data-i18n="challenge.learningTitle">What I learned</h2>
+          <p data-i18n="challenge.learningBody">The project strengthened my ability to move from mathematical definitions to an applied modelling workflow, read diagnostic output and revise an initial interpretation when the evidence did not support a stronger claim.</p>
+        </div>
+        <div class="report-preview">
+          <img src="../assets/challenge-report-cover.png" data-i18n-alt="challenge.reportAlt" alt="First page of the original Statistical Challenge report">
+          <div>
+            <h2 data-i18n="challenge.reportTitle">Original team report</h2>
+            <p data-i18n="challenge.reportBody">The original PDF is preserved as source material. This web case revises several explanations for technical accuracy while keeping the reported estimates unchanged.</p>
+            <a class="button button--primary" href="../downloads/statistical-challenge-final.pdf" download data-i18n="common.originalReport">Download original report</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <p>© <span data-year></span> <span data-i18n="common.copyright">Chenghao Wang</span></p>
+      <p data-i18n="common.footer">Financial statistics, data products and risk modelling.</p>
+      <a href="#case-content" data-i18n="common.backTop">Back to top</a>
+    </div>
+  </footer>
+
+  <script src="../i18n.js"></script>
+  <script src="../script.js"></script>
+</body>
+</html>
